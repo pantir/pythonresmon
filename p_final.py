@@ -10,11 +10,11 @@ import pyqtgraph
 from collections import deque
 from itertools import repeat
 
-import clr # https://stackoverflow.com/questions/3262603/accessing-cpu-temperature-in-python
+import clr
 
 clr.AddReference(r'./OpenHardwareMonitorLib')
 
-from OpenHardwareMonitor import Hardware # https://github.com/openhardwaremonitor/openhardwaremonitor
+from OpenHardwareMonitor import Hardware
 
 
 class Panzerfaust(QMainWindow):
@@ -36,11 +36,11 @@ class Panzerfaust(QMainWindow):
         self.ui.general_cpu.setText("CPU: %s" %self.f.Hardware[1].Name)
         self.ui.general_ram.setText("RAM: %sB" %bytes2human(psutil.virtual_memory().total))
 
-        self.deque_cpu = deque(repeat(0,60), maxlen=60) # Jarca Mihai
+        self.deque_cpu = deque(repeat(0,60), maxlen=60)
         self.deque_gpu = deque(repeat(0,60), maxlen=60)
         self.deque_ram = deque(repeat(0,60), maxlen=60)
         self.timer = QTimer()
-        self.timer.timeout.connect(self.update) # Jarca Mihai
+        self.timer.timeout.connect(self.update)
         self.timer.setInterval(1000)
         self.timer.start()
         self.CPU_graph.getAxis('left').setTextPen(253, 184, 39)
@@ -138,7 +138,7 @@ class Panzerfaust(QMainWindow):
         self.updatepb(psutil.virtual_memory().percent, self.ui.circRAM, "rgba(253, 184, 39, 255)")
         self.updatepb(psutil.virtual_memory().percent, self.ui.circRAM_2, "rgba(253, 184, 39, 255)")
 
-    def updatepb(self, update, nume, color): #https://www.earthinversion.com/desktopapps/system-monitor-app-in-python/#install-libraries
+    def updatepb(self, update, nume, color):
 
         styleSheet = """
         QFrame{
